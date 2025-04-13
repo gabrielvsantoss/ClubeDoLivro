@@ -2,7 +2,7 @@
 
 using ClubeDoLivro.ConsoleApp.ModuloAmigo;
 
-namespace ClubeDoLivro.ConsoleApp.ModuloLivro
+namespace ClubeDoLivro.ConsoleApp.ModuloRevista
 {
     public class TelaRevista
     {

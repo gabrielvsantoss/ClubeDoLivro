@@ -1,6 +1,6 @@
 ﻿
 
-namespace ClubeDoLivro.ConsoleApp.ModuloLivro
+namespace ClubeDoLivro.ConsoleApp.ModuloRevista
 {
    public class RepositorioRevista
     {
