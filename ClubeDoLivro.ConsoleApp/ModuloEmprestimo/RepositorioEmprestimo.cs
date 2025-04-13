@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ClubeDoLivro.ConsoleApp.ModuloAmigo;
+using ClubeDoLivro.ConsoleApp.ModuloRevista;
 
 namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
 {
-    class RepositorioEmprestimo
+   
+   public class RepositorioEmprestimo
     {
+       public Emprestimo[] emprestimosCadastrados = new Emprestimo[100];
+       
     }
 }

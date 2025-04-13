@@ -1,6 +1,6 @@
 ﻿
 
-using ClubeDoLivro.ConsoleApp.ModuloLivro;
+using ClubeDoLivro.ConsoleApp.ModuloRevista;
 
 namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
 {
@@ -130,80 +130,8 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
             }
         }
 
-        public void EmprestarRevistaAmigo()
-        {
-            bool revistaExiste = false;
-            telaRevista.VisualizarRevistas();
+        
 
-            Console.WriteLine("Digite qual o titulo da revista que deseja emprestar");
-            string tituloEmprestimo = Console.ReadLine()!;
-
-            for (int i = 0; i < repositorioRevista.revistasCadastradas.Length; i++)
-            {
-                if (repositorioRevista.revistasCadastradas[i] == null) continue;
-
-                else if (repositorioRevista.revistasCadastradas[i].tituloRevista == tituloEmprestimo) ;
-                {
-                    revistaExiste = true;
-                }
-            }
-
-            if (revistaExiste)
-            {
-                VisualizarAmigos();
-                Console.WriteLine("Digite qual o nome  do amigo que deseja emprestar");
-                string amigoEmprestimo = Console.ReadLine()!;
-
-                for (int i = 0; i < repositorio.amigosCadastrados.Length; i++)
-                {
-                    if (repositorio.amigosCadastrados[i] == null) continue;
-
-                    else if (repositorio.amigosCadastrados[i].nomeCompleto == amigoEmprestimo)
-                    {
-                        repositorio.amigosCadastrados[i].Revistas[i] = tituloEmprestimo;
-                    }
-                }
-            }
-
-            else if (!revistaExiste)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Revista invalida, Clique ENTER para continuar");
-                Console.ReadLine();
-                Console.ResetColor();
-            }
-        }
-
-        public void ExibirRevistasCadastradasEmUmAmigo()
-        {
-            VisualizarAmigos();
-            Console.WriteLine("Digite o nome do amigo que deseja visualizar as revistas emprestadas");
-            string amigo = Console.ReadLine()!;
-            bool amigoExiste = false;
-
-            for (int i = 0; i < repositorio.amigosCadastrados.Length; i++)
-            {
-                if (repositorio.amigosCadastrados[i] == null) continue;
-
-                else if (repositorio.amigosCadastrados[i].nomeCompleto == amigo)
-                {
-                    amigoExiste = true;
-                }
-            }
-
-            if (amigoExiste)
-            {
-               
-                for(int i = 0; i < ; i++)
-                {
-                    if (repositorio.amigosCadastrados[i] == null) continue;
-
-                    else
-                        Console.WriteLine(repositorio.amigosCadastrados[i].Revistas);
-                }
-
-                Console.ReadLine();
-            }
-        }
+        
     }
 }
