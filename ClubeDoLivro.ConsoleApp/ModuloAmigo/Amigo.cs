@@ -4,7 +4,17 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
 {
     public class Amigo
     {
-        string nomeCompleto;
-        string nomeResponsavel;
+        public string nomeCompleto;
+        public string nomeResponsavel;
+        public string telefone;
+        public string[] Revistas = new string[100];
+
+        public Amigo(string NomeCompleto, string NomeResponsavel, string Telefone)
+        {
+            nomeCompleto = NomeCompleto;
+            nomeResponsavel = NomeResponsavel;
+            telefone = Telefone;
+        }
+
     }
 }
