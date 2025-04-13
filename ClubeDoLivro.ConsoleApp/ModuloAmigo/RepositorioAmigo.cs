@@ -7,7 +7,6 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
     public class RepositorioAmigo
     {
         public  Amigo[] amigosCadastrados = new Amigo[100];
-        
 
         public int contadorAmigos = 0;
         public bool EditarAmigo(string nomeVerificacao)

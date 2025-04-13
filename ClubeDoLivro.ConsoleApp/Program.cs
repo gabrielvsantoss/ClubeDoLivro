@@ -15,14 +15,14 @@ namespace ClubeDoLivro.ConsoleApp
 
             TelaCompartilhada telaPrincipal = new TelaCompartilhada();
             RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
-            TelaAmigo telaAmigo = new TelaAmigo(telaRevista, repositorioRevista);
+            TelaAmigo telaAmigo = new TelaAmigo(telaRevista, repositorioRevista, repositorioAmigo);
 
             RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
             TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioAmigo,repositorioRevista,telaRevista,telaAmigo);
 
             while (true)
             {
-
+                Console.Clear();
                 int opcaoPrincipal = telaPrincipal.MenuPrincipal();
 
                 if (opcaoPrincipal == 1)
@@ -70,10 +70,22 @@ namespace ClubeDoLivro.ConsoleApp
 
                 else if (opcaoPrincipal == 3)
                 {
-                    Console.Clear();
-                    int opcaoEmprestimo = telaEmprestimo.MenuEmprestimo();
+                    while (true)
+                    {
 
-                    if
+
+                        Console.Clear();
+                        int opcaoEmprestimo = telaEmprestimo.MenuEmprestimo();
+
+                        if (opcaoEmprestimo == 1)
+                            telaEmprestimo.CadastrarEmprestimo();
+
+                        else if (opcaoEmprestimo == 4)
+                            
+                            telaEmprestimo.visualizarEmprestimos();
+                        else
+                            break;
+                    }
                 }
             }
 

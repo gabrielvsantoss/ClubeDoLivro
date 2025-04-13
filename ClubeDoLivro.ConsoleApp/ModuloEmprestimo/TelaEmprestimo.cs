@@ -10,9 +10,9 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
        public TelaRevista telaRevista;
        public TelaAmigo telaAmigo;
        public Revista revista = new Revista(" ", 0, 0);
-        public TelaEmprestimo(RepositorioAmigo repositorioAmigo, RepositorioRevista repositorioRevista, TelaRevista telaRevista, TelaAmigo telaAmigo)
+        public TelaEmprestimo(RepositorioAmigo RepositorioAmigoo, RepositorioRevista repositorioRevista, TelaRevista telaRevista, TelaAmigo telaAmigo)
         {
-            this.repositorioAmigo = repositorioAmigo;
+            repositorioAmigo = RepositorioAmigoo;
             this.repositorioRevista = repositorioRevista;
             this.telaRevista = telaRevista;
             this.telaAmigo = telaAmigo;
@@ -31,6 +31,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
             Console.WriteLine("2 - Editar Emprestimo ja existente");
             Console.WriteLine("3 - Excluir  Emprestimo");
             Console.WriteLine("4 - Visualizar  Emprestimos de um amigo");
+            Console.WriteLine("Sair");
             Console.WriteLine("-------------------------");
             opcao = Convert.ToInt32(Console.ReadLine());
 
@@ -63,7 +64,8 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
 
                 if (!revistaEncontrada)
                 {
-                    
+                 Console.WriteLine("");
+                    Console.ReadLine();
                 }
                 else if(revistaEncontrada)
                 {
@@ -81,35 +83,44 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
                         }
                     }
                 }
+
+
         }
-       
+
         public void visualizarEmprestimos()
         {
             telaAmigo.VisualizarAmigos();
             Console.WriteLine("Digite o nome do amigo que deseja visualizar os emprestimos");
             string amigoVisualizado = Console.ReadLine()!;
 
-            for(int i = 0 ; i < repositorioAmigo.amigosCadastrados.Length; i ++)
+            if (repositorioAmigo.amigosCadastrados[0] != null)
             {
-                if (repositorioAmigo.amigosCadastrados[i] == null) continue;
-
-                else if (repositorioAmigo.amigosCadastrados[i].nomeCompleto == amigoVisualizado)
+                for (int i = 0; i < repositorioAmigo.amigosCadastrados.Length; i++)
                 {
-                    Console.WriteLine(
-                      "{0, -25} | {1, -10} | {2, -15}",
-                   "Titulo", "Numero Edição", "Ano Publicação"
-                  );
+                    if (repositorioAmigo.amigosCadastrados[i] == null) continue;
 
-                   for(int a = 0; a < repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo.Length; a++)
+                    else if (repositorioAmigo.amigosCadastrados[i].nomeCompleto == amigoVisualizado )
                     {
+                        Console.WriteLine($"Livros cadastrados no nome de {amigoVisualizado}");
                         Console.WriteLine(
-            "{0, -25} | {1, -10} | {2, -15} |",
-            repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].tituloRevista, repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].numeroEdicao, repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].anoPublicacao
-         );
-                    }
-                }
+                          "{0, -25} | {1, -25} | {2, -15}",
+                       "Titulo", "Numero Edição", "Ano Publicação"
+                      );
 
+                        for (int a = 0; a < repositorioAmigo.amigosCadastrados[i].quantidadeDeRevistasCadastradasEmUmAmigo; a++)
+                        {
+                            Console.WriteLine(
+                "{0, -25} | {1, -25} | {2, -15} |",
+                repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].tituloRevista, repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].numeroEdicao, repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].anoPublicacao
+             );
+                        }
+                    }
+
+
+                }
             }
+            Console.ReadLine();
+
         }
 
     }

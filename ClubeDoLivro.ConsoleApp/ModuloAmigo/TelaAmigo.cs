@@ -6,16 +6,17 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
 {
     public class TelaAmigo
     {
-        RepositorioAmigo repositorio = new RepositorioAmigo();
+        RepositorioAmigo repositorioAmigo;
         public RepositorioRevista repositorioRevista;
         public TelaRevista telaRevista;
 
 
 
-        public TelaAmigo(TelaRevista telaRevista, RepositorioRevista repositorioRevista)
+        public TelaAmigo(TelaRevista telaRevista, RepositorioRevista repositorioRevista, RepositorioAmigo repositorioAmigo)
         {
             this.telaRevista = telaRevista;
             this.repositorioRevista = repositorioRevista;
+            this.repositorioAmigo = repositorioAmigo;
 
         }
         public int MenuAmigo()
@@ -29,8 +30,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
             Console.WriteLine("1 - Cadastrar Novo Amigo");
             Console.WriteLine("2 - Editar Amigo ja existente");
             Console.WriteLine("3 - Excluir  Amigo");
-            Console.WriteLine("4 - Emprestar revista a um Amigo");
-            Console.WriteLine("5 - Visualizar revistas emprestadas a um Amigo");
+            Console.WriteLine("4 - Sair");
             Console.WriteLine("-------------------------");
             opcao = Convert.ToInt32(Console.ReadLine());
 
@@ -51,7 +51,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
 
 
             Amigo NovoAmigo = new Amigo(NomeCompleto, NomeResponsavel, Telefone);
-            repositorio.amigosCadastrados[repositorio.contadorAmigos++] = NovoAmigo;
+            repositorioAmigo.amigosCadastrados[repositorioAmigo.contadorAmigos++] = NovoAmigo;
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Amigo Cadastrado com sucesso!, Clique ENTER para continuar");
             Console.ReadLine();
@@ -64,7 +64,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
             Console.WriteLine("Digite o nome Completo do amigo que deseja editar");
             string nomeVerificacao = Console.ReadLine()!;
 
-            bool amigoExiste = repositorio.EditarAmigo(nomeVerificacao);
+            bool amigoExiste = repositorioAmigo.EditarAmigo(nomeVerificacao);
 
             if (amigoExiste == true)
             {
@@ -78,7 +78,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
                 string telefoneNovo = Console.ReadLine()!;
 
                 Amigo AmigoEditado = new Amigo(nomeNovo, nomeResponsavelNovo, telefoneNovo);
-                repositorio.amigosCadastrados[repositorio.contadorAmigos++] = AmigoEditado;
+                repositorioAmigo.amigosCadastrados[repositorioAmigo.contadorAmigos++] = AmigoEditado;
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Amigo Editado com sucesso!, Clique ENTER para continuar");
                 Console.ResetColor();
@@ -91,15 +91,15 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
             "{0, -25} | {1, -25} | {2, -25}",
          "Nome Completo", "Nome Responsavel", "Telefone"
         );
-            for (int i = 0; i < repositorio.amigosCadastrados.Length; i++)
+            for (int i = 0; i < repositorioAmigo.amigosCadastrados.Length; i++)
             {
-                if (repositorio.amigosCadastrados[i] == null) continue;
+                if (repositorioAmigo.amigosCadastrados[i] == null) continue;
 
                 else
                 {
                     Console.WriteLine(
             "{0, -25} | {1, -25} | {2, -25} |",
-              repositorio.amigosCadastrados[i].nomeCompleto, repositorio.amigosCadastrados[i].nomeResponsavel, repositorio.amigosCadastrados[i].telefone
+              repositorioAmigo.amigosCadastrados[i].nomeCompleto, repositorioAmigo.amigosCadastrados[i].nomeResponsavel, repositorioAmigo.amigosCadastrados[i].telefone
          );
 
                 }
@@ -115,13 +115,13 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
             Console.WriteLine("Digite o nome completo do amigo que deseja excluir");
             string amigoExcluir = Console.ReadLine()!;
 
-            for (int i = 0; i < repositorio.amigosCadastrados.Length; i++)
+            for (int i = 0; i < repositorioAmigo.amigosCadastrados.Length; i++)
             {
-                if (repositorio.amigosCadastrados[i] == null) continue;
+                if (repositorioAmigo.amigosCadastrados[i] == null) continue;
 
-                else if (amigoExcluir == repositorio.amigosCadastrados[i].nomeCompleto)
+                else if (amigoExcluir == repositorioAmigo.amigosCadastrados[i].nomeCompleto)
                 {
-                    repositorio.amigosCadastrados[i] = null;
+                    repositorioAmigo.amigosCadastrados[i] = null;
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Amigo excluido com sucesso!, Clique ENTER para continuar");
                     Console.ReadLine();

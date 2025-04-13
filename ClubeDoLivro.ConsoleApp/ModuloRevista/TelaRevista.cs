@@ -22,6 +22,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
             Console.WriteLine("1 - Cadastrar Nova Revista");
             Console.WriteLine("2 - Editar Revista ja existente");
             Console.WriteLine("3 - Excluir  Revista");
+            Console.WriteLine("4 - Sair");
             Console.WriteLine("-------------------------");
             opcao = Convert.ToInt32(Console.ReadLine());
 
