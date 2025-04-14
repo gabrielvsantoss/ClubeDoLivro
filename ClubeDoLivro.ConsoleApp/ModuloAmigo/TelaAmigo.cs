@@ -10,6 +10,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
         public RepositorioRevista repositorioRevista;
         public TelaRevista telaRevista;
 
+        public Amigo amigoValidar = new Amigo("", "", "");
 
 
         public TelaAmigo(TelaRevista telaRevista, RepositorioRevista repositorioRevista, RepositorioAmigo repositorioAmigo)
@@ -40,22 +41,42 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
 
         public void CadastrarNovoAmigo()
         {
-            Console.WriteLine("Qual o nome completo do novo amigo?");
-            string NomeCompleto = Console.ReadLine()!;
+            while (true)
+            {
+                Console.WriteLine("Qual o nome completo do novo amigo?");
+                string NomeCompleto = Console.ReadLine()!;
 
-            Console.WriteLine("Qual o nome completo do responsavel do novo amigo?");
-            string NomeResponsavel = Console.ReadLine()!;
+                Console.WriteLine("Qual o nome completo do responsavel do novo amigo?");
+                string NomeResponsavel = Console.ReadLine()!;
 
-            Console.WriteLine("Qual o telefone do novo amigo?");
-            string Telefone = Console.ReadLine()!;
+                Console.WriteLine("Qual o telefone do novo amigo?");
+                string Telefone = Console.ReadLine()!;
+
+                string erros = amigoValidar.verificarDados(NomeCompleto, NomeResponsavel, Telefone);
+
+                if (erros.Length > 1)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(erros);
+                    Console.WriteLine("Clique ENTER para tentar novamente");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                }
 
 
-            Amigo NovoAmigo = new Amigo(NomeCompleto, NomeResponsavel, Telefone);
-            repositorioAmigo.amigosCadastrados[repositorioAmigo.contadorAmigos++] = NovoAmigo;
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Amigo Cadastrado com sucesso!, Clique ENTER para continuar");
-            Console.ReadLine();
-            Console.ResetColor();
+                else
+                {
+                    
+                    Amigo NovoAmigo = new Amigo(NomeCompleto, NomeResponsavel, Telefone);
+                    repositorioAmigo.amigosCadastrados[repositorioAmigo.contadorAmigos++] = NovoAmigo;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Amigo Cadastrado com sucesso!, Clique ENTER para continuar");
+                    Console.ReadLine();
+                    Console.ResetColor();
+                    break;
+                }
+
+            }
         }
 
         public void EditarAmigo()

@@ -1,12 +1,14 @@
 ﻿
 
 using ClubeDoLivro.ConsoleApp.ModuloAmigo;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ClubeDoLivro.ConsoleApp.ModuloRevista
 {
     public class TelaRevista
     {
         RepositorioRevista repositorioRevista;
+        Revista revistaVerificacao = new Revista("", 1, 1);
         public TelaRevista(RepositorioRevista repositorioRevista)
         {
             this.repositorioRevista = repositorioRevista;
@@ -30,26 +32,45 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
             return opcao;
         }
 
-       public void CadastrarRevista()
+        public void CadastrarRevista()
         {
-            Console.WriteLine("Qual o titulo da revista que deseja cadastrar");
-            string Titulo = Console.ReadLine()!;
+            while (true)
+            {
+                Console.WriteLine("Qual o titulo da revista que deseja cadastrar");
+                string Titulo = Console.ReadLine()!;
 
-            Console.WriteLine("Qual o numero da edição da revista que deseja cadastrar?");
-            int NumeroEdicao = Convert.ToInt32(Console.ReadLine()!);
+                Console.WriteLine("Qual o numero da edição da revista que deseja cadastrar?");
+                int NumeroEdicao = Convert.ToInt32(Console.ReadLine()!);
 
-            Console.WriteLine("Qual o ano de publicação da revista que deseja cadastrar?");
-            int AnoPublicacao = Convert.ToInt32(Console.ReadLine()!);
+                Console.WriteLine("Qual o ano de publicação da revista que deseja cadastrar?");
+                int AnoPublicacao = Convert.ToInt32(Console.ReadLine()!);
+
+                string erros = revistaVerificacao.ValidarDados(Titulo, NumeroEdicao, AnoPublicacao);
 
 
-            Revista NovaRevista = new Revista(Titulo, NumeroEdicao, AnoPublicacao);
+                if (erros.Length > 1)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(erros);
+                    Console.WriteLine("Clique ENTER para tentar novamente");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                }
 
-            repositorioRevista.revistasCadastradas[repositorioRevista.contadorRevistas++] = NovaRevista;
+                else
+                {
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Revista Cadastrado com sucesso!, Clique ENTER para continuar");
-            Console.ReadLine();
-            Console.ResetColor();
+                    Revista NovaRevista = new Revista(Titulo, NumeroEdicao, AnoPublicacao);
+
+                    repositorioRevista.revistasCadastradas[repositorioRevista.contadorRevistas++] = NovaRevista;
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Revista Cadastrado com sucesso!, Clique ENTER para continuar");
+                    Console.ReadLine();
+                    Console.ResetColor();
+                    break;
+                }
+            }
         }
 
         public void EditarRevista()

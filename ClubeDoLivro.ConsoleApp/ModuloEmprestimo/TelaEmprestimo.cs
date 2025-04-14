@@ -109,10 +109,14 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
 
                         for (int a = 0; a < repositorioAmigo.amigosCadastrados[i].quantidadeDeRevistasCadastradasEmUmAmigo; a++)
                         {
-                            Console.WriteLine(
-                "{0, -25} | {1, -25} | {2, -15} |",
-                repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].tituloRevista, repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].numeroEdicao, repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].anoPublicacao
-             );
+                            if (repositorioAmigo.amigosCadastrados[i].revistasCadastradasEmUmAmigo == null) continue;
+                            else
+                            {
+                                Console.WriteLine(
+                    "{0, -25} | {1, -25} | {2, -15} |",
+                    repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].tituloRevista, repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].numeroEdicao, repositorioAmigo.amigosCadastrados[a].revistasCadastradasEmUmAmigo[a].anoPublicacao
+                 );
+                            }
                         }
                     }
 
