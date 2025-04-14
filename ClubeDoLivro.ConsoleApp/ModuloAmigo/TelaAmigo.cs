@@ -31,8 +31,10 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
             Console.WriteLine("1 - Cadastrar Novo Amigo");
             Console.WriteLine("2 - Editar Amigo ja existente");
             Console.WriteLine("3 - Excluir  Amigo");
-            Console.WriteLine("4 - Sair");
+            Console.WriteLine("4 - Visualizar  Amigos Cadastrados");
+            Console.WriteLine("5 - Sair");
             Console.WriteLine("-------------------------");
+            Console.Write("Opção: ");
             opcao = Convert.ToInt32(Console.ReadLine());
 
 
@@ -45,12 +47,32 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
             {
                 Console.WriteLine("Qual o nome completo do novo amigo?");
                 string NomeCompleto = Console.ReadLine()!;
+                bool nomeExiste = VerificarExistenciaNome(NomeCompleto);
+                
+                if(nomeExiste)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Este nome ja esta cadastrado no sistema\n Aperte ENTER para tentar novamente");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    continue;
+                }
 
                 Console.WriteLine("Qual o nome completo do responsavel do novo amigo?");
                 string NomeResponsavel = Console.ReadLine()!;
 
                 Console.WriteLine("Qual o telefone do novo amigo?");
                 string Telefone = Console.ReadLine()!;
+                bool telefoneExiste = VerificarExistenciaTelefone(Telefone);
+
+                   if (telefoneExiste)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Este telefone ja esta cadastrado no sistema\n Aperte ENTER para tentar novamente");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    continue;
+                }
 
                 string erros = amigoValidar.verificarDados(NomeCompleto, NomeResponsavel, Telefone);
 
@@ -151,8 +173,41 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
             }
         }
 
-        
+        public bool VerificarExistenciaNome(string NomeCompleto)
+        {
+            bool nomeExiste = false;
+           for(int i = 0; i < repositorioAmigo.amigosCadastrados.Length; i++)
+            {
+                if (repositorioAmigo.amigosCadastrados[i] == null) continue;
 
-        
+                else if (repositorioAmigo.amigosCadastrados[i].nomeCompleto == NomeCompleto)
+                {
+                    nomeExiste = true;
+                }
+            }
+
+            return nomeExiste;
+        }
+
+        public bool VerificarExistenciaTelefone(string Telefone)
+        {
+
+            bool telefoneExiste = false;
+            for (int i = 0; i < repositorioAmigo.amigosCadastrados.Length; i++)
+            {
+                if (repositorioAmigo.amigosCadastrados[i] == null) continue;
+
+                else if (repositorioAmigo.amigosCadastrados[i].telefone == Telefone)
+                {
+                    telefoneExiste = true;
+                }
+            }
+
+            return telefoneExiste;
+        }
+
+
+
+
     }
 }

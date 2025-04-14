@@ -11,7 +11,11 @@ namespace ClubeDoLivro.ConsoleApp
         static void Main(string[] args)
         {
             RepositorioRevista repositorioRevista = new RepositorioRevista();
-            TelaRevista telaRevista = new TelaRevista(repositorioRevista);
+            RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
+
+            TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
+
+            TelaRevista telaRevista = new TelaRevista(repositorioRevista, telaCaixa, repositorioCaixa);
 
             TelaCompartilhada telaPrincipal = new TelaCompartilhada();
             RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
@@ -19,6 +23,7 @@ namespace ClubeDoLivro.ConsoleApp
 
             RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
             TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioAmigo,repositorioRevista,telaRevista,telaAmigo);
+
 
             while (true)
             {
@@ -41,6 +46,13 @@ namespace ClubeDoLivro.ConsoleApp
                         else if (opcaoAmigo == 3)
                             telaAmigo.ExcluirAmigo();
 
+                        else if (opcaoAmigo == 4)
+                        {
+                            telaAmigo.VisualizarAmigos();
+                            Console.WriteLine("Clique ENTER para continuar");
+                            Console.ReadLine();
+                        }
+
                         else
                             break;
                     }
@@ -62,6 +74,13 @@ namespace ClubeDoLivro.ConsoleApp
                         else if (opcaoRevista == 3)
                             telaRevista.ExcluirRevista();
 
+                        else if (opcaoRevista == 4)
+                        {
+                            telaRevista.VisualizarRevistas();
+                            Console.WriteLine("Clique ENTER para continuar");
+                            Console.ReadLine();
+                        }
+
                         else
                             break;
                     }
@@ -82,7 +101,30 @@ namespace ClubeDoLivro.ConsoleApp
 
                         else if (opcaoEmprestimo == 4)
                             
-                            telaEmprestimo.visualizarEmprestimos();
+                            telaEmprestimo.VisualizarEmprestimos();
+                        else
+                            break;
+                    }
+                }
+
+                else if (opcaoPrincipal == 4)
+                {
+                    while (true)
+                    {
+
+
+                        Console.Clear();
+                        int opcaoCaixa = telaCaixa.MenuCaixa();
+
+                        if (opcaoCaixa == 1)
+                            telaCaixa.CadastrarCaixa();
+
+                        else if (opcaoCaixa == 4)
+                        {
+                            telaCaixa.VisualizarCaixas();
+                            Console.WriteLine("Clique ENTER para continuar");
+                            Console.ReadLine();
+                        }
                         else
                             break;
                     }

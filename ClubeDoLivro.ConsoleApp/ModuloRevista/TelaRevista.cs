@@ -1,17 +1,21 @@
 ﻿
 
 using ClubeDoLivro.ConsoleApp.ModuloAmigo;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
+using ClubeDoLivro.ConsoleApp.ModuloCaixa;
+using System.Runtime.Serialization;
 namespace ClubeDoLivro.ConsoleApp.ModuloRevista
 {
     public class TelaRevista
     {
         RepositorioRevista repositorioRevista;
-        Revista revistaVerificacao = new Revista("", 1, 1);
-        public TelaRevista(RepositorioRevista repositorioRevista)
+        Revista revistaVerificacao = new Revista("", 1, 1, "");
+        public TelaCaixa telaCaixa;
+        public RepositorioCaixa repositorioCaixa;
+        public TelaRevista(RepositorioRevista repositorioRevistaa, TelaCaixa telaCaixa, RepositorioCaixa repositorioCaixa)
         {
-            this.repositorioRevista = repositorioRevista;
+            repositorioRevista = repositorioRevistaa;
+            this.telaCaixa = telaCaixa;
+            this.repositorioCaixa = repositorioCaixa;
         }
         public int MenuRevista()
         {
@@ -24,10 +28,11 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
             Console.WriteLine("1 - Cadastrar Nova Revista");
             Console.WriteLine("2 - Editar Revista ja existente");
             Console.WriteLine("3 - Excluir  Revista");
-            Console.WriteLine("4 - Sair");
+            Console.WriteLine("4 - Visualizar  Revistas Cadastradas");
+            Console.WriteLine("5 - Sair");
             Console.WriteLine("-------------------------");
+            Console.Write("Opção: ");
             opcao = Convert.ToInt32(Console.ReadLine());
-
 
             return opcao;
         }
@@ -42,9 +47,11 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
                 Console.WriteLine("Qual o numero da edição da revista que deseja cadastrar?");
                 int NumeroEdicao = Convert.ToInt32(Console.ReadLine()!);
 
-                Console.WriteLine("Qual o ano de publicação da revista que deseja cadastrar?");
-                int AnoPublicacao = Convert.ToInt32(Console.ReadLine()!);
+                Console.WriteLine("Qual o ano de publicação da revista que deseja cadastrar? (yyyy/mm/dd)");
+                DateTime AnoPublicacao = Convert.ToDateTime((Console.ReadLine()!));
 
+                
+                Console.WriteLine();
                 string erros = revistaVerificacao.ValidarDados(Titulo, NumeroEdicao, AnoPublicacao);
 
 
@@ -60,15 +67,30 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
                 else
                 {
 
-                    Revista NovaRevista = new Revista(Titulo, NumeroEdicao, AnoPublicacao);
+                    Revista NovaRevista = new Revista(Titulo, NumeroEdicao, AnoPublicacao, "Disponivel");
 
                     repositorioRevista.revistasCadastradas[repositorioRevista.contadorRevistas++] = NovaRevista;
+                    telaCaixa.VisualizarCaixas();
+                    Console.WriteLine("Qual a etiqueta da caixa que deseja cadastrar essa revista?");
+                    string etiqueta = Console.ReadLine()!;
+
+                    for (int i = 0; i < repositorioCaixa.caixasCadastradas.Length; i++)
+                    {
+                        if (repositorioCaixa.caixasCadastradas[i] == null) continue;
+
+                        else if (repositorioCaixa.caixasCadastradas[i].etiqueta == etiqueta)
+                        {
+                            repositorioCaixa.caixasCadastradas[i].revistas[repositorioCaixa.caixasCadastradas[i].contadorRevistas++] = NovaRevista;
+                        }
+                    }
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Revista Cadastrado com sucesso!, Clique ENTER para continuar");
                     Console.ReadLine();
                     Console.ResetColor();
                     break;
+
+
                 }
             }
         }
@@ -92,7 +114,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
                 Console.WriteLine("Qual vai ser o telefone do amigo que esta sendo editado?");
                 int AnoPublicacao = Convert.ToInt32(Console.ReadLine()!);
 
-                Revista RevistaEditada = new Revista(Titulo, NumeroEdicao, AnoPublicacao);
+                Revista RevistaEditada = new Revista(Titulo, NumeroEdicao, AnoPublicacao, "");
                 repositorioRevista.revistasCadastradas[repositorioRevista.contadorRevistas++] = RevistaEditada;
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Revista Editada com sucesso!, Clique ENTER para continuar");
@@ -105,8 +127,8 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
         public void VisualizarRevistas()
         {
             Console.WriteLine(
-            "{0, -25} | {1, -10} | {2, -15}",
-         "Titulo", "Numero Edição", "Ano Publicação"
+            "{0, -20} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
+         "Titulo", "Numero Edição", "Ano Publicação", "Status", "Caixa Pertente"
         );
             for (int i = 0; i < repositorioRevista.revistasCadastradas.Length; i++)
             {
@@ -115,8 +137,8 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
                 else
                 {
                     Console.WriteLine(
-            "{0, -25} | {1, -10} | {2, -15} |",
-              repositorioRevista.revistasCadastradas[i].tituloRevista, repositorioRevista.revistasCadastradas[i].numeroEdicao, repositorioRevista.revistasCadastradas[i].anoPublicacao
+            "{0, -20} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
+              repositorioRevista.revistasCadastradas[i].tituloRevista, repositorioRevista.revistasCadastradas[i].numeroEdicao, repositorioRevista.revistasCadastradas[i].anoPublicacao, repositorioRevista.revistasCadastradas[i].status, repositorioCaixa.caixasCadastradas[i].etiqueta
          );
 
                 }

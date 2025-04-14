@@ -1,6 +1,7 @@
 ﻿
 
 using ClubeDoLivro.ConsoleApp.ModuloAmigo;
+using ClubeDoLivro.ConsoleApp.ModuloCaixa;
 
 namespace ClubeDoLivro.ConsoleApp.ModuloRevista
 {
@@ -8,15 +9,17 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
     {
         public string tituloRevista;
         public int numeroEdicao;
-        public int anoPublicacao;
-        public Revista( string TituloRevista, int NumeroEdicao, int AnoPublicacao)
+        public DateTime anoPublicacao;
+        public string status = "Disponivel";
+     
+        public Revista(string TituloRevista, int NumeroEdicao, DateTime AnoPublicacao, string Status)
         {
             tituloRevista = TituloRevista;
             numeroEdicao = NumeroEdicao;
             anoPublicacao = AnoPublicacao;
         }
 
-        public string ValidarDados(string TituloRevista, int NumeroEdicao, int AnoPublicacao)
+        public string ValidarDados(string TituloRevista, int NumeroEdicao, DateTime AnoPublicacao)
         {
             string erros = "";
 
@@ -32,12 +35,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
             if (NumeroEdicao < 0)
                 erros += "O campo 'Numero Edicão' deve ter um valor positivo.\n";
 
-            if (AnoPublicacao == 0)
-                erros += "O campo 'Ano Publicação' é obrigatório.\n";
-
-            if (AnoPublicacao < 0)
-                erros += "O campo 'Ano Publicação' deve ter um valor positivo.\n";
-
+            
 
             return erros;
         }
