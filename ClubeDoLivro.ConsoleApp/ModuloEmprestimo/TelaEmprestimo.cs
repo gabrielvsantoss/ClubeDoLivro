@@ -34,8 +34,6 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
             Console.WriteLine("-------------------------");
             Console.WriteLine("Qual a opção que deseja?");
             Console.WriteLine("1 - Cadastrar Novo Emprestimo");
-            Console.WriteLine("2 - Editar Emprestimo ja existente");
-            Console.WriteLine("3 - Excluir  Emprestimo");
             Console.WriteLine("4 - Visualizar  Emprestimos de um amigo");
             Console.WriteLine("5 - Visualizar todos os emprestimos existentes");
             Console.WriteLine("5 - Sair");
