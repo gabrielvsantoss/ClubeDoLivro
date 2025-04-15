@@ -15,19 +15,17 @@ namespace ClubeDoLivro.ConsoleApp.ModuloCaixa
         public int MenuCaixa()
         {
             int opcao;
-            Console.WriteLine("-------------------------");
-            Console.WriteLine("Menu Caixas");
-            Console.WriteLine("-------------------------");
-            Console.WriteLine("1 - Cadastrar Caixa");
-            Console.WriteLine("2 - Editar Caixa");
-            Console.WriteLine("3 - Excluir Caixa");
-            Console.WriteLine("4 - Visualizar Caixas");
-            Console.WriteLine("5 - Sair");
-            Console.WriteLine("-------------------------");
+            Console.WriteLine(" ------------------------- ");
+            Console.WriteLine("|      Menu Caixas        |");
+            Console.WriteLine("|-------------------------|");
+            Console.WriteLine("|[1] - Cadastrar Caixa    |");
+            Console.WriteLine("|[2] - Editar Caixa       |");
+            Console.WriteLine("|[3] - Excluir Caixa      |");
+            Console.WriteLine("|[4] - Visualizar Caixas  |");
+            Console.WriteLine("|[5] - Sair               |");
+            Console.WriteLine(" ------------------------- ");
             Console.Write("Opção: ");
             opcao = Convert.ToInt32(Console.ReadLine());
-
-
             return opcao;
         }
 
@@ -35,8 +33,6 @@ namespace ClubeDoLivro.ConsoleApp.ModuloCaixa
         {
             while (true)
             {
-
-
                 Console.WriteLine("Digite qual a etiqueta da caixa que esta sendo cadastrada");
                 string Etiqueta = Console.ReadLine()!;
 
@@ -44,7 +40,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloCaixa
 
                 if (EtiquetaExiste)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Esa estiqueta ja esta cadastrada no sistema\n Aperte ENTER para tentar novamente");
                     Console.ResetColor();
                     Console.ReadLine();
@@ -62,7 +58,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloCaixa
 
                     Caixa caixaNova = new Caixa(Etiqueta, Cor, DiasEmprestimo, repositorioCaixa.revistasCaixa);
                     repositorioCaixa.caixasCadastradas[repositorioCaixa.contadorCaixas++] = caixaNova;
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine("Caixa Cadastrada com sucesso!, Clique ENTER para continuar");
                     Console.ReadLine();
                     Console.ResetColor();
@@ -71,6 +67,15 @@ namespace ClubeDoLivro.ConsoleApp.ModuloCaixa
             }
         }
 
+        public void EditarCaixa()
+        {
+
+        }
+
+        public void ExcluirCaixa()
+        {
+
+        }
         public bool VerificarExistenciaEtiqueta(string Etiqueta)
         {
             bool etiquetaExiste = false;
@@ -86,28 +91,48 @@ namespace ClubeDoLivro.ConsoleApp.ModuloCaixa
 
             return etiquetaExiste;
         }
-
         public string ObterCor()
         {
             string cor;
 
             while (true)
             {
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine("       ------------ ");
+                Console.WriteLine("      |    Azul    |");
+                Console.WriteLine("       ------------ ");
+                Console.ResetColor();
 
-                Console.WriteLine("------------");
-                Console.WriteLine("Azul");
-                Console.WriteLine("------------");
-                Console.WriteLine("Vermelho");
-                Console.WriteLine("------------");
-                Console.WriteLine("Verde");
-                Console.WriteLine("------------");
-                Console.WriteLine("Amarelo");
-                Console.WriteLine("------------");
                 Console.WriteLine("");
+
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("       ------------ ");
+                Console.WriteLine("      |  Vermelho  |");
+                Console.WriteLine("       ------------ ");
+                Console.ResetColor();
+
+                Console.WriteLine("");
+
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine("       ------------ ");
+                Console.WriteLine("      |    Verde   |");
+                Console.WriteLine("       ------------ ");
+                Console.ResetColor();
+
+                Console.WriteLine("");
+
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("       ------------ ");
+                Console.WriteLine("      |    Ciano   |");
+                Console.WriteLine("       ------------ ");
+                Console.ResetColor();
+
+                Console.WriteLine("");
+
                 Console.WriteLine("Digite qual das quatro Cores voce deseja");
                 cor = Console.ReadLine()!.ToLower()!;
 
-                if (cor != "azul" && cor != "vermelho" && cor != "verde" && cor != "amarelo")
+                if (cor != "azul" && cor != "vermelho" && cor != "verde" && cor != "ciano")
                 {
                     Console.WriteLine("A cor digitada é invalida\n Aperte ENTER para tentar novamente");
                     Console.ReadLine();
@@ -118,9 +143,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloCaixa
 
                 }
             }
-
             return cor;
-
         }
 
         public  void VisualizarCaixas()
@@ -152,13 +175,8 @@ namespace ClubeDoLivro.ConsoleApp.ModuloCaixa
                     Console.WriteLine("");
                     Console.WriteLine("------------------------------------------------------------------------------------------------");
                     break;
-                    
-
                 }
             }
         }
-
-
-
     }
 }

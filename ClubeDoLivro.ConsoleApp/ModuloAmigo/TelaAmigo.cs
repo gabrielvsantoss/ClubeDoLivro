@@ -1,5 +1,6 @@
 ﻿
 
+using ClubeDoLivro.ConsoleApp.ModuloEmprestimo;
 using ClubeDoLivro.ConsoleApp.ModuloRevista;
 
 namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
@@ -9,31 +10,30 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
         RepositorioAmigo repositorioAmigo;
         public RepositorioRevista repositorioRevista;
         public TelaRevista telaRevista;
-
+        public TelaEmprestimo telaEmprestimo;
         public Amigo amigoValidar = new Amigo("", "", "");
 
 
-        public TelaAmigo(TelaRevista telaRevista, RepositorioRevista repositorioRevista, RepositorioAmigo repositorioAmigo)
+        public TelaAmigo(TelaRevista telaRevista, RepositorioRevista repositorioRevista, RepositorioAmigo repositorioAmigo, TelaEmprestimo telaEmprestimo)
         {
             this.telaRevista = telaRevista;
             this.repositorioRevista = repositorioRevista;
             this.repositorioAmigo = repositorioAmigo;
+            this.telaEmprestimo = telaEmprestimo;
 
         }
         public int MenuAmigo()
         {
 
             int opcao;
-            Console.WriteLine("-------------------------");
-            Console.WriteLine("Menu Amigos");
-            Console.WriteLine("-------------------------");
-            Console.WriteLine("Qual a opção que deseja?");
-            Console.WriteLine("1 - Cadastrar Novo Amigo");
-            Console.WriteLine("2 - Editar Amigo ja existente");
-            Console.WriteLine("3 - Excluir  Amigo");
-            Console.WriteLine("4 - Visualizar  Amigos Cadastrados");
-            Console.WriteLine("5 - Sair");
-            Console.WriteLine("-------------------------");
+            Console.WriteLine(" -------------------------------------");
+            Console.WriteLine("|           Menu Amigos               |");
+            Console.WriteLine("|-------------------------------------|");
+            Console.WriteLine("| [1] - Cadastrar Amigos              |");
+            Console.WriteLine("| [2] - Editar Amigo Cadastrado       |");
+            Console.WriteLine("| [3] - Excluir Amigo Cadastrado      |");
+            Console.WriteLine("| [4] - Visualizar Amigos Cadastrados |");
+            Console.WriteLine(" ------------------------------------- ");
             Console.Write("Opção: ");
             opcao = Convert.ToInt32(Console.ReadLine());
 
@@ -52,7 +52,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
                 
                 if(nomeExiste)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Este nome ja esta cadastrado no sistema\n Aperte ENTER para tentar novamente");
                     Console.ResetColor();
                     Console.ReadLine();
@@ -68,7 +68,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
 
                    if (telefoneExiste)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Este telefone ja esta cadastrado no sistema\n Aperte ENTER para tentar novamente");
                     Console.ResetColor();
                     Console.ReadLine();
@@ -79,7 +79,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
 
                 if (erros.Length > 1)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine(erros);
                     Console.WriteLine("Clique ENTER para tentar novamente");
                     Console.ResetColor();
@@ -92,7 +92,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
                     
                     Amigo NovoAmigo = new Amigo(NomeCompleto, NomeResponsavel, Telefone);
                     repositorioAmigo.amigosCadastrados[repositorioAmigo.contadorAmigos++] = NovoAmigo;
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine("Amigo Cadastrado com sucesso!, Clique ENTER para continuar");
                     Console.ReadLine();
                     Console.ResetColor();
@@ -119,12 +119,12 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
                 Console.WriteLine("Qual vai ser o nome do responsavel do amigo que esta sendo editado?");
                 string nomeResponsavelNovo = Console.ReadLine()!;
 
-                Console.WriteLine("Qual vai ser o telefone do amigo que esta sendo editado? Utilize o Formato: (00 0000-0000");
+                Console.WriteLine("Qual vai ser o telefone do amigo que esta sendo editado? Utilize o Formato: (00 0000-0000)");
                 string telefoneNovo = Console.ReadLine()!;
 
                 Amigo AmigoEditado = new Amigo(nomeNovo, nomeResponsavelNovo, telefoneNovo);
                 repositorioAmigo.amigosCadastrados[repositorioAmigo.contadorAmigos++] = AmigoEditado;
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine("Amigo Editado com sucesso!, Clique ENTER para continuar");
                 Console.ResetColor();
             }
@@ -164,10 +164,18 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
             {
                 if (repositorioAmigo.amigosCadastrados[i] == null) continue;
 
+                if (telaEmprestimo.repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo != null)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("Este amigo nao pode ser excluido pois ele possui um emprestimo\nAperte ENTER para continuar");
+                    Console.ReadLine();
+                    Console.ResetColor();
+                    break;
+                }
                 else if (amigoExcluir == repositorioAmigo.amigosCadastrados[i].nomeCompleto)
                 {
                     repositorioAmigo.amigosCadastrados[i] = null;
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine("Amigo excluido com sucesso!, Clique ENTER para continuar");
                     Console.ReadLine();
                     Console.ResetColor();

@@ -21,16 +21,15 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
         {
 
             int opcao;
-            Console.WriteLine("-------------------------");
-            Console.WriteLine("Menu Revistas");
-            Console.WriteLine("-------------------------");
-            Console.WriteLine("Qual a opção que deseja?");
-            Console.WriteLine("1 - Cadastrar Nova Revista");
-            Console.WriteLine("2 - Editar Revista ja existente");
-            Console.WriteLine("3 - Excluir  Revista");
-            Console.WriteLine("4 - Visualizar  Revistas Cadastradas");
-            Console.WriteLine("5 - Sair");
-            Console.WriteLine("-------------------------");
+            Console.WriteLine(" ---------------------------------------");
+            Console.WriteLine("|             Menu Revistas             |");
+            Console.WriteLine("|---------------------------------------|");
+            Console.WriteLine("|[1] - Cadastrar Nova Revista           |");
+            Console.WriteLine("|[2] - Editar Revista ja existente      |");
+            Console.WriteLine("|[3] - Excluir  Revista                 |");
+            Console.WriteLine("|[4] - Visualizar  Revistas Cadastradas |");
+            Console.WriteLine("|[5] - Sair                             |");
+            Console.WriteLine(" --------------------------------------- ");
             Console.Write("Opção: ");
             opcao = Convert.ToInt32(Console.ReadLine());
 
@@ -51,7 +50,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
 
                     if (revistaExiste)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine("Esta reviista ja esta cadastrada no sistema\n Aperte ENTER para tentar novamente");
                         Console.ResetColor();
                         Console.ReadLine();
@@ -63,7 +62,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
                         Console.WriteLine("Qual o numero da edição da revista que deseja cadastrar?");
                         int NumeroEdicao = Convert.ToInt32(Console.ReadLine()!);
 
-                        Console.WriteLine("Qual o ano de publicação da revista que deseja cadastrar? (yyyy/mm/dd)");
+                        Console.WriteLine("Qual o ano de publicação da revista que deseja cadastrar? (dd/mm/yyyy)");
                         DateTime AnoPublicacao = Convert.ToDateTime((Console.ReadLine()!));
 
 
@@ -73,7 +72,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
 
                         if (erros.Length > 1)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
                             Console.WriteLine(erros);
                             Console.WriteLine("Clique ENTER para tentar novamente");
                             Console.ResetColor();
@@ -100,7 +99,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
                                 }
                             }
 
-                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.WriteLine("Revista Cadastrado com sucesso!, Clique ENTER para continuar");
                             Console.ReadLine();
                             Console.ResetColor();
@@ -136,7 +135,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
 
                 Revista RevistaEditada = new Revista(Titulo, NumeroEdicao, AnoPublicacao, "");
                 repositorioRevista.revistasCadastradas[repositorioRevista.contadorRevistas++] = RevistaEditada;
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine("Revista Editada com sucesso!, Clique ENTER para continuar");
                 Console.ResetColor();
             }
