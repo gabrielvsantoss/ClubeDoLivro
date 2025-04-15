@@ -22,7 +22,7 @@ namespace ClubeDoLivro.ConsoleApp
             TelaAmigo telaAmigo = new TelaAmigo(telaRevista, repositorioRevista, repositorioAmigo);
 
             RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
-            TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioAmigo,repositorioRevista,telaRevista,telaAmigo);
+            TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioAmigo,repositorioRevista,telaRevista,telaAmigo,telaCaixa,repositorioCaixa);
 
 
             while (true)
@@ -99,8 +99,10 @@ namespace ClubeDoLivro.ConsoleApp
                         if (opcaoEmprestimo == 1)
                             telaEmprestimo.CadastrarEmprestimo();
 
-                        else if (opcaoEmprestimo == 4)
-                            
+                        else if (opcaoEmprestimo == 2)
+                        telaEmprestimo.VisualizarEmprestimoEspecifico();
+
+                        else if (opcaoEmprestimo == 3)
                             telaEmprestimo.VisualizarEmprestimos();
                         else
                             break;

@@ -8,7 +8,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
     {
         public RepositorioRevista repositorioRevista;
         public RepositorioAmigo repositorioAmigo;
-
+        public DateTime[] dias = new DateTime[100];
         public Emprestimo(RepositorioAmigo repositorioAmigo, RepositorioRevista repositorioRevista)
         {
             this.repositorioAmigo = repositorioAmigo;

@@ -1,4 +1,5 @@
 ﻿using ClubeDoLivro.ConsoleApp.ModuloAmigo;
+using ClubeDoLivro.ConsoleApp.ModuloCaixa;
 using ClubeDoLivro.ConsoleApp.ModuloRevista;
 
 namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
@@ -9,13 +10,19 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
         public RepositorioRevista repositorioRevista;
         public TelaRevista telaRevista;
         public TelaAmigo telaAmigo;
-        public Revista revista = new Revista(" ", 0, 0, "");
-        public TelaEmprestimo(RepositorioAmigo RepositorioAmigoo, RepositorioRevista repositorioRevista, TelaRevista telaRevista, TelaAmigo telaAmigo)
+        public Revista revista = new Revista(" ", 0, default, "");
+        public RepositorioCaixa repositorioCaixa;
+        public TelaCaixa telaCaixa;
+        public int[] diasRestantes = new int [100];
+        
+        public TelaEmprestimo(RepositorioAmigo RepositorioAmigoo, RepositorioRevista repositorioRevista, TelaRevista telaRevistaa, TelaAmigo telaAmigo, TelaCaixa telaCaixa, RepositorioCaixa repositorioCaixa)
         {
             repositorioAmigo = RepositorioAmigoo;
             this.repositorioRevista = repositorioRevista;
-            this.telaRevista = telaRevista;
+            telaRevista = telaRevistaa;
             this.telaAmigo = telaAmigo;
+            this.telaCaixa = telaCaixa;
+            this.repositorioCaixa = repositorioCaixa;
         }
 
         public int MenuEmprestimo()
@@ -26,10 +33,11 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
             Console.WriteLine("Menu Emprestimo");
             Console.WriteLine("-------------------------");
             Console.WriteLine("Qual a opção que deseja?");
-            Console.WriteLine("1 - Cadastrar Novo Emprestim");
+            Console.WriteLine("1 - Cadastrar Novo Emprestimo");
             Console.WriteLine("2 - Editar Emprestimo ja existente");
             Console.WriteLine("3 - Excluir  Emprestimo");
             Console.WriteLine("4 - Visualizar  Emprestimos de um amigo");
+            Console.WriteLine("5 - Visualizar todos os emprestimos existentes");
             Console.WriteLine("5 - Sair");
             Console.WriteLine("-------------------------");
             Console.Write("Opção: ");
@@ -64,8 +72,11 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
             Console.WriteLine("------------------------------------------------------------------");
 
             if (!revistaEncontrada)
-            {
-                Console.WriteLine("");
+
+            {   Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("A revista que voce digitou nao esta cadastrada no nosso sistema");
+                Console.WriteLine("Aperte ENTER para continuar");
+                Console.ResetColor();
                 Console.ReadLine();
             }
             else if (revistaEncontrada)
@@ -80,9 +91,6 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
 
                     else if (repositorioAmigo.amigosCadastrados[i].nomeCompleto == amigoEmprestimo)
                     {
-
-
-                        
                             if (repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo == null) continue;
 
                             else
@@ -95,6 +103,9 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
                                             break
                                         ;
                                     }
+
+                                Console.WriteLine("Digite a data que esta sendo realizado esse emprstimo para calcularmos a data de devolução (dd/mm/yyyy)");
+                                repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.dataEmprestimo = Convert.ToDateTime(Console.ReadLine()!);
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine("Emprestimo realizado com sucesso\nAperte ENTER para continuar");
                                 Console.ResetColor();
@@ -102,18 +113,12 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
                                 repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo = revista;
                                 break;
                             }
-                        
-
-
-
                     }
                 }
             }
-
-
         }
 
-        public void VisualizarEmprestimos()
+        public void VisualizarEmprestimoEspecifico()
         {
             telaAmigo.VisualizarAmigos();
             Console.WriteLine("Digite o nome do amigo que deseja visualizar os emprestimos");
@@ -141,14 +146,37 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
                     repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.tituloRevista, repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.numeroEdicao, repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.anoPublicacao
                  );
                             }
-                        
                     }
-
-
                 }
             }
             Console.ReadLine();
 
+        }
+
+        public void VisualizarEmprestimos()
+        {
+            Console.WriteLine($"Emprestimos cadastrados no sistema:");
+            Console.WriteLine(
+              "{0, -25} | {1, -25} | {2, -25}",
+           "Amigo", "Revista", "Caixa"
+          );
+            for (int i = 0; i < repositorioAmigo.amigosCadastrados.Length; i++)
+            {
+                if (repositorioAmigo.amigosCadastrados[i] == null) continue;
+
+                    if (repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo == null) continue;
+
+                    else
+                    {
+                        Console.WriteLine(
+            "{0, -25} | {1, -25} | {2, -15} |",
+            repositorioAmigo.amigosCadastrados[i].nomeCompleto, repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.tituloRevista, repositorioCaixa.caixasCadastradas[i].etiqueta
+         );
+                    }
+                
+            }
+
+            Console.ReadLine();
         }
 
     }

@@ -45,6 +45,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
         {
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine("Qual o nome completo do novo amigo?");
                 string NomeCompleto = Console.ReadLine()!;
                 bool nomeExiste = VerificarExistenciaNome(NomeCompleto);
@@ -61,7 +62,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
                 Console.WriteLine("Qual o nome completo do responsavel do novo amigo?");
                 string NomeResponsavel = Console.ReadLine()!;
 
-                Console.WriteLine("Qual o telefone do novo amigo?");
+                Console.WriteLine("Qual o telefone do novo amigo? Utilize o formato: (00 0000 - 0000");
                 string Telefone = Console.ReadLine()!;
                 bool telefoneExiste = VerificarExistenciaTelefone(Telefone);
 
@@ -102,7 +103,8 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
         }
 
         public void EditarAmigo()
-        {
+        { 
+            Console.Clear();
             VisualizarAmigos();
             Console.WriteLine("Digite o nome Completo do amigo que deseja editar");
             string nomeVerificacao = Console.ReadLine()!;
@@ -117,7 +119,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
                 Console.WriteLine("Qual vai ser o nome do responsavel do amigo que esta sendo editado?");
                 string nomeResponsavelNovo = Console.ReadLine()!;
 
-                Console.WriteLine("Qual vai ser o telefone do amigo que esta sendo editado?");
+                Console.WriteLine("Qual vai ser o telefone do amigo que esta sendo editado? Utilize o Formato: (00 0000-0000");
                 string telefoneNovo = Console.ReadLine()!;
 
                 Amigo AmigoEditado = new Amigo(nomeNovo, nomeResponsavelNovo, telefoneNovo);

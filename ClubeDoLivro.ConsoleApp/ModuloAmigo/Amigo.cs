@@ -13,7 +13,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
         public string telefone;
         public string[] Revistas = new string[100];
 
-        public Revista revistaCadastradaEmUmAmigo = new Revista("", 1,1, "");
+        public Revista revistaCadastradaEmUmAmigo = new Revista("", 1,default, "");
         public bool podeFazerEmprestimo = false;
         public int quantidadeDeRevistasCadastradasEmUmAmigo = 0;
 

@@ -11,7 +11,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
         public int numeroEdicao;
         public DateTime anoPublicacao;
         public string status = "Disponivel";
-     
+        public DateTime dataEmprestimo = new DateTime();
         public Revista(string TituloRevista, int NumeroEdicao, DateTime AnoPublicacao, string Status)
         {
             tituloRevista = TituloRevista;
@@ -34,8 +34,11 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
 
             if (NumeroEdicao < 0)
                 erros += "O campo 'Numero Edicão' deve ter um valor positivo.\n";
-
+           
             
+
+
+
 
             return erros;
         }
