@@ -122,7 +122,7 @@ namespace ClubeDoLivro.ConsoleApp
                         if (opcaoCaixa == 1)
                             telaCaixa.CadastrarCaixa();
 
-                        else if (opcaoCaixa == 4)
+                        else if (opcaoCaixa == 2)
                         {
                             telaCaixa.VisualizarCaixas();
                             Console.WriteLine("Clique ENTER para continuar");

@@ -19,10 +19,8 @@ namespace ClubeDoLivro.ConsoleApp.ModuloCaixa
             Console.WriteLine("|      Menu Caixas        |");
             Console.WriteLine("|-------------------------|");
             Console.WriteLine("|[1] - Cadastrar Caixa    |");
-            Console.WriteLine("|[2] - Editar Caixa       |");
-            Console.WriteLine("|[3] - Excluir Caixa      |");
-            Console.WriteLine("|[4] - Visualizar Caixas  |");
-            Console.WriteLine("|[5] - Sair               |");
+            Console.WriteLine("|[2] - Visualizar Caixas  |");
+            Console.WriteLine("|[3] - Sair               |");
             Console.WriteLine(" ------------------------- ");
             Console.Write("Opção: ");
             opcao = Convert.ToInt32(Console.ReadLine());
