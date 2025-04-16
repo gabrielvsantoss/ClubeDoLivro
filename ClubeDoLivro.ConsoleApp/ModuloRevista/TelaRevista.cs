@@ -146,7 +146,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloRevista
         public void VisualizarRevistas()
         {
             Console.WriteLine(
-            "{0, -20} | {1, -20} | {2, -20}",
+            "{0, -20} | {1, -20} | {2, -20} | {3, -20}",
          "Titulo", "Numero Edição", "Ano Publicação", "Status"
         );
             for (int i = 0; i < repositorioRevista.revistasCadastradas.Length; i++)

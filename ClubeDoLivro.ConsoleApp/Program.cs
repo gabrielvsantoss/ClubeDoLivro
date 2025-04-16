@@ -97,10 +97,9 @@ namespace ClubeDoLivro.ConsoleApp
                         if (opcaoEmprestimo == 1)
                             telaEmprestimo.CadastrarEmprestimo();
 
-                        else if (opcaoEmprestimo == 2)
-                            telaEmprestimo.VisualizarEmprestimoEspecifico();
+                           
 
-                        else if (opcaoEmprestimo == 3)
+                        else if (opcaoEmprestimo == 2)
                         {
                             telaEmprestimo.VisualizarEmprestimos();
                             Console.WriteLine("Clique ENTER para continuar");

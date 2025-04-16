@@ -31,9 +31,8 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
             Console.WriteLine("|                Menu Emprestimo                  |");
             Console.WriteLine("|-------------------------------------------------|");
             Console.WriteLine("|[1] - Cadastrar Novo Emprestimo                  |");
-            Console.WriteLine("|[2] - Visualizar  Emprestimos de um amigo        |");
-            Console.WriteLine("|[3] - Visualizar todos os emprestimos existentes |");
-            Console.WriteLine("|[4] - Sair                                       |");
+            Console.WriteLine("|[2] - Visualizar todos os emprestimos existentes |");
+            Console.WriteLine("|[3] - Sair                                       |");
             Console.WriteLine("|------------------------------------------------- ");
             Console.Write("Opção: ");
             opcao = Convert.ToInt32(Console.ReadLine());
@@ -58,9 +57,9 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
 
                 else if (repositorioRevista.revistasCadastradas[i].tituloRevista == revistaEmprestimo)
                 {
-                    repositorioRevista.revistasCadastradas[i].status = "Indisponivel";
-                    revista = repositorioRevista.revistasCadastradas[i];
-                    revistaEncontrada = true;
+                    repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo = repositorioRevista.revistasCadastradas[i];
+                    if(revistaEncontrada == false)
+                        revistaEncontrada = true;
                 }
             }
 
@@ -68,8 +67,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
 
             if (!revistaEncontrada)
 
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed ;
+            {   Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("A revista que voce digitou nao esta cadastrada no nosso sistema");
                 Console.WriteLine("Aperte ENTER para continuar");
                 Console.ResetColor();
@@ -91,7 +89,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
 
                             else
                             {
-                                if (repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.status == "Indisponivel")
+                                if (repositorioRevista.revistasCadastradas[i].status == "Indisponivel")
                                     {
                                         Console.WriteLine("Esse amigo ja possui um emprestimo e essa revista nao podera ser entregue a ele.\nAperte ENTER para continuar");
                                         Console.ReadLine();
@@ -99,12 +97,13 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
                                     }
 
                                 Console.WriteLine("Digite a data que esta sendo realizado esse emprstimo para calcularmos a data de devolução (dd/mm/yyyy)");
-                                repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.dataEmprestimo = DateTime.Parse(Console.ReadLine()!);
-                                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                                repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.dataEmprestimo = Convert.ToDateTime(Console.ReadLine()!);
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                repositorioRevista.revistasCadastradas[i].status = "Indisponivel";
+
                                 Console.WriteLine("Emprestimo realizado com sucesso\nAperte ENTER para continuar");
                                 Console.ResetColor();
                                 Console.ReadLine();
-                                revista = repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo;
                                 break;
                             }
                     }
@@ -112,48 +111,14 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
             }
         }
 
-        public void VisualizarEmprestimoEspecifico()
-        {
-            VisualizarAmigos();
-            Console.WriteLine("Digite o nome do amigo que deseja visualizar os emprestimos");
-            string amigoVisualizado = Console.ReadLine()!;
 
-            if (repositorioAmigo.amigosCadastrados[0] != null)
-            {
-                for (int i = 0; i < repositorioAmigo.amigosCadastrados.Length; i++)
-                {
-                    if (repositorioAmigo.amigosCadastrados[i] == null) continue;
-
-                    else if (repositorioAmigo.amigosCadastrados[i].nomeCompleto == amigoVisualizado)
-                    {
-                        Console.WriteLine($"Livros cadastrados no nome de {amigoVisualizado}");
-                        Console.WriteLine(
-                          "{0, -25} | {1, -25} | {2, -15}",
-                       "Titulo", "Numero Edição", "Ano Publicação"
-                      );
-
-                          if (repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo == null) continue;
-                            else
-                            {
-                            Console.WriteLine(
-                "{0, -25} | {1, -25} | {2, -15} |",
-                repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.tituloRevista, repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.numeroEdicao, repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.anoPublicacao, repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.dataEmprestimo
-
-             );
-                            }
-                    }
-                }
-            }
-            Console.ReadLine();
-
-        }
 
         public void VisualizarEmprestimos()
         {
             Console.WriteLine($"Emprestimos cadastrados no sistema:");
             Console.WriteLine(
-              "{0, -25} | {1, -25} {2, -25},",
-           "Amigo", "Revista" , "Data de realização"
+              "{0, -25} | {1, -25} | {2, -25} | {3, -25}",
+           "Amigo", "Revista" , "Data de realização", "Data de Vencimento"
           );
             for (int i = 0; i < repositorioAmigo.amigosCadastrados.Length; i++)
             {
@@ -163,10 +128,13 @@ namespace ClubeDoLivro.ConsoleApp.ModuloEmprestimo
 
                     else
                     {
-                        Console.WriteLine(
-            "{0, -25} | {1, -25} | {2, -25} |",
-            repositorioAmigo.amigosCadastrados[i].nomeCompleto, repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.tituloRevista, repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.dataEmprestimo
-         );
+                   
+                        DateTime tempoTotal = repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.dataEmprestimo.AddDays(repositorioCaixa.caixasCadastradas[i].diasEmprestimo);
+                    
+                      Console.WriteLine(
+                        "{0, -25} | {1, -25} | {2, -25} | {3, -25}",
+                        repositorioAmigo.amigosCadastrados[i].nomeCompleto, repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.tituloRevista, repositorioAmigo.amigosCadastrados[i].revistaCadastradaEmUmAmigo.dataEmprestimo.ToShortDateString(), tempoTotal.ToShortDateString()
+                     );
                     }
                 
             }

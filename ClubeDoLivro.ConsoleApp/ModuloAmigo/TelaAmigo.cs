@@ -33,6 +33,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
             Console.WriteLine("| [2] - Editar Amigo Cadastrado       |");
             Console.WriteLine("| [3] - Excluir Amigo Cadastrado      |");
             Console.WriteLine("| [4] - Visualizar Amigos Cadastrados |");
+            Console.WriteLine("| [5] - Sair                          |");
             Console.WriteLine(" ------------------------------------- ");
             Console.Write("Opção: ");
             opcao = Convert.ToInt32(Console.ReadLine());
@@ -62,7 +63,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
                 Console.WriteLine("Qual o nome completo do responsavel do novo amigo?");
                 string NomeResponsavel = Console.ReadLine()!;
 
-                Console.WriteLine("Qual o telefone do novo amigo? Utilize o formato: (00 0000 - 0000");
+                Console.WriteLine("Qual o telefone do novo amigo? Utilize o formato: (00 0000 - 0000)");
                 string Telefone = Console.ReadLine()!;
                 bool telefoneExiste = VerificarExistenciaTelefone(Telefone);
 
@@ -126,6 +127,7 @@ namespace ClubeDoLivro.ConsoleApp.ModuloAmigo
                 repositorioAmigo.amigosCadastrados[repositorioAmigo.contadorAmigos++] = AmigoEditado;
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine("Amigo Editado com sucesso!, Clique ENTER para continuar");
+                Console.ReadLine();
                 Console.ResetColor();
             }
         }
